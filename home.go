@@ -38,8 +38,8 @@ var homePage = `{{define "content"}}<div class="row">
 <div class="panel">
 <ul>
 <li><a href="/about">About</a></li>
-<li><a href="/hello/" class="btn">Hello</a></li>
-<li><input type="text" name="username">  <a href="/hello/" class="btn" id="gobtn">Go</a></li>
+<li><a href="/hello" class="btn">Hello</a></li>
+<li><input type="text" name="username">  <a href="/hello" class="btn" id="gobtn">Go</a></li>
 </ul>
 <p id="msg"></p>
 </div>
@@ -52,7 +52,7 @@ var btn = document.getElementById("gobtn")
 var msg = document.getElementById("msg")
 var baseurl = String(btn.href)
 ip.addEventListener('input',function(e){
-	btn.href = baseurl+ip.value
+	btn.href = baseurl+"/"+ip.value
 })
 
 document.querySelectorAll("a.btn").forEach(a=>{
@@ -76,6 +76,7 @@ function GetResult(path){
 var aboutPage = `{{define "content"}}<div class="row">
 <div class="col-md-4 col-md-offset-4">
 <h2>{{.message}}</h2>
+<a href="/">Home</a>
 </div>
 </div>
 {{end}}`
@@ -110,7 +111,7 @@ func (h homeHandlers) render(tmpl string, w http.ResponseWriter, r *http.Request
 
 func (h homeHandlers) errPage404(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNotFound)
-	w.Write([]byte("Sorry cant find that."))
+	w.Write([]byte("Whoops! Sorry cant find that."))
 }
 func (h homeHandlers) errPage500(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusInternalServerError)

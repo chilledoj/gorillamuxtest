@@ -35,9 +35,10 @@ func buildRoutes() *mux.Router {
 	r := mux.NewRouter()
 
 	home := homeHandlers{}
+	r.NotFoundHandler = http.HandlerFunc(home.errPage404)
 	r.HandleFunc("/", home.homePage)
 	r.HandleFunc("/about", home.aboutPage)
 
-	r.PathPrefix("/hello").Handler(helloRoutes(r))
+	r.PathPrefix("/hello").Handler(helloRoutes())
 	return r
 }
